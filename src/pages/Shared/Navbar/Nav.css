@@ -1,0 +1,7 @@
+.BgNav {
+    background: rgba(255, 172, 51, 0.13);
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.9px);
+    -webkit-backdrop-filter: blur(5.9px);
+    border-bottom: 1px solid #ffad33c5;
+}

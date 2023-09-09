@@ -10,3 +10,19 @@ body{
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.default{
+  @apply text-info font-medium bg-transparent
+}
+
+.navActive{
+  @apply text-primary text-base font-medium hover:text-primary hover:bg-transparent focus:bg-transparent focus:text-primary
+}
+
+.navDefault{
+  @apply text-info text-base hover:text-primary hover:bg-transparent focus:bg-transparent focus:text-primary
+}
+
+.myBtn{
+  @apply inline-flex items-center gap-1 text-base font-semibold px-2 py-1 border border-primary rounded-md text-primary hover:text-white hover:bg-primary transition-all duration-700
+}
