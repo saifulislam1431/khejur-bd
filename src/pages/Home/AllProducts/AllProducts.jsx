@@ -7,7 +7,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi2';
 
 const AllProducts = () => {
     const[allProducts] = useProducts();
-    console.log(allProducts);
+
     return (
         <section className='my-16'>
 <SectionHead title="Unveiling the Elegance: A Symphony of Premium Dates, Nuts, and Seeds" description="Step into a world of opulence and refinement as we unveil our extraordinary collection of premium Dates, Nuts, and Seeds. Each product is a masterpiece of flavor, quality, and exclusivity. Delight in the richness of taste, savor the moments of indulgence, and elevate your palate to new heights with our exquisite selection. Discover the epitome of luxury in every bite."/>

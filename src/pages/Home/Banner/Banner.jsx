@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import logo from "../../../assets/brand/full logos.png"
 import "./Banner.css"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 

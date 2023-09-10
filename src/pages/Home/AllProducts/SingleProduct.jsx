@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { Link } from 'react-router-dom';
 
 const SingleProduct = ({product}) => {
-    const {name,price,imageUrl,size,brand} = product;
+    const {name,price,imageUrl,size,brand,_id} = product;
     return (
         <div className='my-5 shadow-md rounded-lg overflow-hidden'>
             <motion.div className='relative'
@@ -25,7 +25,7 @@ const SingleProduct = ({product}) => {
                         <p className='font-semibold text-white'>Brand: {brand}</p>
 
                         <div className='text-center mt-3'>
-                            <Link to="/">
+                            <Link to={`/details/${_id}`}>
                             <button className='myBtn'>View Details</button>
                             </Link>
                         </div>
