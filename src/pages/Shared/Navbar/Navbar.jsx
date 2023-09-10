@@ -119,17 +119,17 @@ const Navbar = () => {
                 </NavLink>
 
 
-                <NavLink to="/shop" className={({ isActive }) => (isActive ? "text-purple-700" : "default")}>
+                <NavLink to="/shop" className={({ isActive }) => (isActive ? "text-secondary" : "default")}>
                     <HiOutlineShoppingBag className='h-7 w-7'/>
                 </NavLink>
 
 
-                <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-purple-700" : "default")}>
+                <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-secondary" : "default")}>
                     <HiOutlineClipboardDocumentList className='h-7 w-7'/>
                 </NavLink>
 
 
-                <NavLink to="/about" className={({ isActive }) => (isActive ? "text-purple-700" : "default")}>
+                <NavLink to="/about" className={({ isActive }) => (isActive ? "text-secondary" : "default")}>
                     <HiOutlineInformationCircle className="w-7 h-7"/>
                 </NavLink>
 
@@ -163,7 +163,7 @@ const Navbar = () => {
     </ul>
   </div>
                     
-                     : <NavLink to="/signIn" className={({ isActive }) => (isActive ? "text-purple-700" : "default")}>
+                     : <NavLink to="/signIn" className={({ isActive }) => (isActive ? "text-secondary" : "default")}>
                      <IoMdLogIn className="w-7 h-7"/>
                  </NavLink>
                 }

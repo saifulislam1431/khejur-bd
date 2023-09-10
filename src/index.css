@@ -26,3 +26,7 @@ body{
 .myBtn{
   @apply inline-flex items-center gap-1 text-base font-semibold px-2 py-1 border border-primary rounded-md text-primary hover:text-white hover:bg-primary transition-all duration-700
 }
+
+.myBtnSec{
+  @apply inline-flex items-center gap-1 text-base font-semibold px-2 py-1 border border-primary rounded-md text-white bg-primary hover:text-primary hover:bg-transparent transition-all duration-700
+}
