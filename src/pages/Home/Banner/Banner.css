@@ -1,0 +1,14 @@
+@keyframes orbit {
+    0% {
+      /* Initial position */
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    100% {
+      /* Final position after one full orbit */
+      transform: translateX(0) translateY(0) rotate(360deg);
+    }
+  }
+  
+  .animate-orbit {
+    animation: orbit 10s linear infinite; 
+  }

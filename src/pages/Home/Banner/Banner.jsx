@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import logo from "../../../assets/brand/full logos.png"
+import "./Banner.css"
+
 
 const Banner = () => {
+
+
     return (
-        <div>
-            Banner
-        </div>
+<div>
+    banner
+</div>
     );
 };
 

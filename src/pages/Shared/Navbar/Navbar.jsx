@@ -82,11 +82,24 @@ const Navbar = () => {
                 }
             </div>
 
+            <form className="navbar-center hidden lg:flex relative">
+                <div>
+                <input type="text" className='px-2 py-2 bg-primary bg-opacity-20 focus:border focus:border-primary outline-none rounded-l-xl rounded-r-full w-80' placeholder='Search More....'/>
+                <button className='absolute bg-primary right-0 px-2 py-2 rounded-r-full text-white'>
+                <IoSearch className='h-6 w-6'/>
+                </button>
+                </div>
+                
+            </form>
+
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {navItems}
                 </ul>
             </div>
+
+            
+
 
             <form className="navbar-end lg:hidden relative">
                 <input type="text" className='px-2 py-2 bg-primary bg-opacity-20 focus:border focus:border-primary outline-none rounded-l-lg rounded-r-full' placeholder='Search More....'/>
