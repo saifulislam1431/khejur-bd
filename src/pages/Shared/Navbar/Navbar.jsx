@@ -59,7 +59,7 @@ const Navbar = () => {
     </ul>
   </div>
 
-    : <Link to="/singIn">
+    : <Link to="/signIn">
 
     <button className='myBtn'>LogIn <IoMdLogIn className='w-7 h-7'/></button>
     

@@ -27,6 +27,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.15.0",
     "sort-by": "^0.0.2",
+    "sweetalert2": "^11.7.27",
     "swiper": "^10.2.0",
     "three": "^0.156.1"
   },
