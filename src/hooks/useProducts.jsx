@@ -5,7 +5,7 @@ const useProducts = () => {
     const {data: allProducts=[] , refetch} =useQuery({
         queryKey:["all-products"],
         queryFn: async()=> {
-            const res = await axios.get("http://localhost:3000/all-products")
+            const res = await axios.get("http://localhost:5000/all-products")
             return res.data;
         }
     })

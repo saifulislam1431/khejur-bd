@@ -20,7 +20,7 @@ const TopProducts = () => {
         const allTopProducts = allProducts.filter(topProducts => topProducts.popularity === "Top");
         setTops(allTopProducts);
         refetch()
-    }, [])
+    }, [allProducts])
 
 
 
