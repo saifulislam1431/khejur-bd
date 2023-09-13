@@ -6,10 +6,25 @@ import useAuth from '../../../hooks/useAuth';
 import { IoMdCart, IoMdLogIn, IoMdLogOut } from "react-icons/io";
 import { HiOutlineClipboardDocumentList, HiOutlineHome, HiOutlineInformationCircle, HiOutlineShoppingBag } from 'react-icons/hi2';
 import { IoSearch } from "react-icons/io5";
+import Swal from 'sweetalert2';
+import useCarts from '../../../hooks/useCarts';
 
 const Navbar = () => {
-    const {user} = useAuth();
+    const {user, logOut} = useAuth();
+    const [carts , refetch] = useCarts();
+    console.log(carts);
     // const user = true;
+    const handleOut =()=>{
+        logOut()
+        .then(()=>{
+            Swal.fire({
+                title: 'Success!',
+                text: 'logout successful!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })  
+        })
+    }
     const navItems = <>
     
 <li>
@@ -34,16 +49,16 @@ const Navbar = () => {
     <div className="dropdown dropdown-end">
     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
       <div className="w-10 rounded-full">
-        <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        <img src={user.photoURL} alt='User' />
         
       </div>
-      <p className='bg-primary text-base w-7 h-7 px-1 py-1 rounded-full text-info absolute -top-2 -right-2'>90</p>
+      <p className='bg-primary text-base w-7 h-7 px-1 py-1 rounded-full text-info absolute -top-2 -right-2'>{carts?.length ? carts?.length : 0}</p>
     </label>
     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 space-y-2">
 
     <li>
     <NavLink to="/cart" className={({isActive})=>(isActive ? "navActive" : "navDefault")}><IoMdCart className='h-6 w-6'/>
-          <span className="badge">New</span></NavLink>
+          <span className="badge badge-primary text-white font-medium">{carts?.length ? carts?.length : 0}</span></NavLink>
 </li>
 
 
@@ -52,7 +67,7 @@ const Navbar = () => {
 </li>
 
 
-      <button className='myBtn'>
+      <button onClick={handleOut} className='myBtn'>
         Logout
         <IoMdLogOut className='w-6 h-6'/>
       </button>

@@ -8,7 +8,8 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import axios from 'axios';
+const token = import.meta.env.VITE_IMAGE_TOKEN;
 const SignUp = () => {
 
 
@@ -20,11 +21,16 @@ const SignUp = () => {
     const navigate = useNavigate()
     const from = location.state?.from?.pathname || "/"
 
-
+    const hosting_url = `https://api.imgbb.com/1/upload?key=${token}`
     const { register, formState: { errors }, handleSubmit } = useForm();
 
 
     const onSubmit = (data) => {
+        const image = data.photo;
+        // console.log(image[0]);
+        const formData = new FormData();
+        formData.append("image", image[0])
+
 
         const password = data.password;
         const confirmPassword = data.confirmPassword;
@@ -40,47 +46,64 @@ const SignUp = () => {
         if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
             return setError("At least one special character include in your password")
         }
-        signUp(data?.email, data?.password)
-            .then(res => {
-                const loggedUser = res.user;
-                updateUser(loggedUser, data?.name, data?.photo)
-                    .then(() => {
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Sign Up Successful',
-                            icon: 'success',
-                            confirmButtonText: 'Ok'
+
+
+
+        fetch(hosting_url, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(ResData => {
+
+                if (ResData) {
+                    const newUser = {
+                        email: data.email,
+                        name: data.name,
+                        phone: data.phone,
+                        gender: data.gender,
+                        photoURL: ResData.data.display_url
+                    }
+
+
+                    signUp(data?.email, data?.password)
+                        .then((res) => {
+                            const loggedUser = res.user;
+
+                            updateUser(loggedUser, data?.name, ResData.data.display_url)
+                                        .then(async() => {
+                                            const res = await axios.post("http://localhost:5000/users", newUser)
+                                            if (res.data.insertedId) {
+                                                userVerify()
+                                                .then(() => {
+                                                    navigate(from, { replace: true })
+                                                    Swal.fire({
+                                                        title: 'Success!',
+                                                        text: 'Sign up successful and check your email to verify!',
+                                                        icon: 'success',
+                                                        confirmButtonText: 'Ok'
+                                                    })  
+                                                })
+                                            }
+                                        })
+
+
                         })
-                        // fetch("" , {
-                        //     method:"POST",
-                        //     headers:{
-                        //         "content-type" : "application/json"
-                        //     },
-                        //     body: JSON.stringify(data)
-                        // })
-                        // .then(res=>res.json())
-                        // .then(data=>{
-                        //     if(data.insertedId){
-                        //         navigate(from , {replace: true})
-                        //         Swal.fire({
-                        //             title: 'Success!',
-                        //             text: 'Sign Up Successful',
-                        //             icon: 'success',
-                        //             confirmButtonText: 'Ok'
-                        //           })
-                        //     }
-                        // })
-                    })
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Error!',
-                    text: error.message,
-                    icon: 'error',
-                    confirmButtonText: 'Cool'
-                })
+                        .catch(error => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: error.message,
+                                icon: 'error',
+                                confirmButtonText: 'Cool'
+                            })
+
+                        })
+
+                }
 
             })
+
+
     }
 
 
@@ -129,6 +152,12 @@ const SignUp = () => {
                                 className='inputField' />
                             {errors.email?.type === 'required' && <p role="alert" className='text-error font-medium'>Email is required</p>}
 
+                            <input type='tel' placeholder='Enter Your Number'
+                                {...register("phone", { required: true })}
+                                aria-invalid={errors.phone ? "true" : "false"}
+                                className='inputField w-full lg:w-96' />
+                            {errors.phone?.type === 'required' && <p role="alert" className='text-error font-medium'>Phone is required</p>}
+
                             <div className='inline-flex items-center'>
                                 <input type={type} placeholder='Enter Your Password'
                                     {...register("password", { required: "Password is required" })}
@@ -155,12 +184,9 @@ const SignUp = () => {
                             <input type='file' placeholder='Enter Your Photo Url'
                                 {...register("photo", { required: true })}
                                 aria-invalid={errors.photo ? "true" : "false"}
-                                className='file-input file-input-bordered file-input-primary lg:w-96' />
+                                className='file-input file-input-bordered file-input-primary w-96' />
                             {errors.photo?.type === 'required' && <p role="alert" className='text-error font-medium'>Photo is required</p>}
 
-                            {/* <div>
-    <input type="number" placeholder='Your Number' {...register("phone", { min: 5, max: 99 })} className='inputField'/>
-    </div> */}
 
                             <select {...register("gender")} className='inputField font-semibold'>
                                 <option defaultValue="Gender">Gender</option>

@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 import { HiChevronLeft, HiMinus, HiPlus, HiShoppingBag } from 'react-icons/hi2';
 import { IoIosCart } from "react-icons/io";
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const ProductDetails = () => {
+    const navigate = useNavigate()
     const {user} = useAuth();
+    const [axiosSecure] = useAxiosSecure();
     const [info, setInfo] = useState('description');
 
     const [selectedProduct, setSelectedProduct] = useState(0)
@@ -30,7 +33,8 @@ setQuantity(pre=> pre === 0 ? 1 :pre+1)
 setQuantity(pre=> pre === 0 ? 1 : pre-1)
     }
 
-    const handleCart = (product) =>{
+    const handleCart =async(product) =>{
+
         if (!user) {
             Swal.fire({
               title: 'Please Sign In',
@@ -48,26 +52,22 @@ setQuantity(pre=> pre === 0 ? 1 : pre-1)
             })
           }
           if (user && user?.email) {
-            const addedData = {
-              classId: _id,
-              className,
-              image,
-              instructorName,
-              price,
-              email: user?.email
+            const cartInfo = {
+                productId: product._id,
+                productCategory: product.category,
+                name: product.name,
+                baseSize: product.size,
+                basePrice: product.price,
+                imageUrl: product.imageUrl,
+                quantity: quantity === 0 ? 1 : quantity,
+                newPrice: parseFloat(quantity === 0 ? 1 : quantity) * parseFloat(product.price),
+                email: user?.email
+    
             }
-            // console.log(addedData);
-            fetch("https://string-verse-server.vercel.app/selected-classes-cart", {
-              method: "POST",
-              headers: {
-                "content-type": "application/json"
-              },
-              body: JSON.stringify(addedData)
-            })
-            .then(res=>res.json())
-            .then(data=>{
-              if(data.insertedId){
-                refetch();
+
+            const res = await axiosSecure.post("/product-cart", cartInfo);
+            if(res.data.insertedId){
+                // refetch();
                 Swal.fire({
                   title: 'Success!',
                   text: 'Selected Successfully',
@@ -75,9 +75,8 @@ setQuantity(pre=> pre === 0 ? 1 : pre-1)
                   confirmButtonText: 'Go To Dashboard For Pay'
                 })
               }
-            })
-          }
-        console.log(product);
+
+        }
     }
 
 

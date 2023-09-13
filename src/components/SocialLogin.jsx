@@ -3,6 +3,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const SocialLogin = () => {
     const navigate = useNavigate()
@@ -12,7 +13,7 @@ const SocialLogin = () => {
 
     const handleGoogle = () => {
         googleIn()
-            .then(res => {
+            .then(async(res) => {
                 const loggedUser = res.user;
                 const newData = {
                     email: loggedUser.email,
@@ -26,25 +27,17 @@ const SocialLogin = () => {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                 })
-                // fetch("", {
-                //     method: "POST",
-                //     headers: {
-                //         "content-type": "application/json"
-                //     },
-                //     body: JSON.stringify(newData)
-                // })
-                //     .then(res => res.json())
-                //     .then((data) => {
-                //         console.log(data);
-                //         navigate(from, { replace: true })
-                //         Swal.fire({
-                //             title: 'Success!',
-                //             text: 'Sign In Successful',
-                //             icon: 'success',
-                //             confirmButtonText: 'Ok'
-                //         })
 
-                //     })
+                const result = await axios.post("http://localhost:5000/users", newData)
+                if(result.data.insertedId){
+                    navigate(from, { replace: true })
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Sign In Successful',
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    })
+                }
 
             })
             .catch(error => {
