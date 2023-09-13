@@ -6,6 +6,7 @@ import banner1 from "../../assets/hero/datesHero.webp"
 import banner2 from "../../assets/featured/featuredDates.webp"
 import banner3 from "../../assets/featured/featuredNuts.webp"
 import banner4 from "../../assets/featured/featuredSeeds.webp"
+import { Helmet } from 'react-helmet-async';
 
 const Shop = () => {
     const [allProducts] = useProducts();
@@ -24,6 +25,9 @@ const Shop = () => {
         },[allProducts , productCategory])
     return (
         <section className='my-14'>
+            <Helmet>
+                <title>Shop | Khejur BD</title>
+            </Helmet>
 <div className="hero bg-fixed lg:w-full h-[480px] lg:h-[400px] mx-auto rounded-lg" style={{backgroundImage: `url(${productCategory === "All" ? banner1 : productCategory === "Dates" ? banner2 : productCategory === "Peanuts" ? banner3 : banner4})`}}>
   <div className="hero-overlay bg-opacity-80 rounded-lg"></div>
   <div className="hero-content text-center text-neutral-content">

@@ -3,8 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 import { HiChevronLeft, HiMinus, HiPlus, HiShoppingBag } from 'react-icons/hi2';
 import { IoIosCart } from "react-icons/io";
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const ProductDetails = () => {
+    const {user} = useAuth();
     const [info, setInfo] = useState('description');
 
     const [selectedProduct, setSelectedProduct] = useState(0)
@@ -25,6 +28,56 @@ setQuantity(pre=> pre === 0 ? 1 :pre+1)
     }
     const handleDecrease = () =>{
 setQuantity(pre=> pre === 0 ? 1 : pre-1)
+    }
+
+    const handleCart = (product) =>{
+        if (!user) {
+            Swal.fire({
+              title: 'Please Sign In',
+              text: "For purchase you have to sign in first",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Sign In'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                //   return <Navigate to="/signIn" state={{from : location}} replace/>
+                navigate("/signIn")
+              }
+            })
+          }
+          if (user && user?.email) {
+            const addedData = {
+              classId: _id,
+              className,
+              image,
+              instructorName,
+              price,
+              email: user?.email
+            }
+            // console.log(addedData);
+            fetch("https://string-verse-server.vercel.app/selected-classes-cart", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json"
+              },
+              body: JSON.stringify(addedData)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+              if(data.insertedId){
+                refetch();
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Selected Successfully',
+                  icon: 'success',
+                  confirmButtonText: 'Go To Dashboard For Pay'
+                })
+              }
+            })
+          }
+        console.log(product);
     }
 
 
@@ -71,7 +124,7 @@ setQuantity(pre=> pre === 0 ? 1 : pre-1)
 <div className='inline-flex items-center'>
 <button onClick={handleIncrease} className='bg-primary px-2 py-2 rounded-l-lg text-white'><HiPlus className='w-6 h-6'/></button>
 
-<input type="text" min={1} value={`${selectedProduct?.size ? selectedProduct?.size : 1 }`}  className='w-28 pl-7 pr-2 py-2 bg-primary bg-opacity-30  font-semibold outline-none'/>
+<input type="text" min={1} value={`${quantity === 0 ? 1 : quantity }`}  className='w-24 pl-7 pr-2 py-2 bg-primary bg-opacity-30  font-semibold outline-none'/>
 
 <button onClick={handleDecrease} className={`${quantity < 1 && quantity ===1 ? "disabled:cursor-not-allowed" : "bg-primary px-2 py-2 rounded-r-lg text-white"}`}><HiMinus className='w-6 h-6'/></button>
 </div>
@@ -82,8 +135,8 @@ setQuantity(pre=> pre === 0 ? 1 : pre-1)
 </div>
 
 <div className='my-5 inline-flex gap-5'>
-<button className='inline-flex items-center justify-center gap-2 w-48 lg:w-64 border py-3 rounded-lg font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-all duration-500'>Buy Now <HiShoppingBag className='w-5 h-5'/></button>
-<button className='inline-flex items-center justify-center gap-2 w-36 lg:w-44 border py-3 rounded-lg font-semibold bg-primary border-primary text-white hover:bg-transparent hover:text-primary transition-all duration-500'>Add To Cart <IoIosCart className='w-5 h-5'/></button>
+<button onClick={()=>handleCart(selectedProduct)} className='inline-flex items-center justify-center gap-2 w-48 lg:w-64 border py-3 rounded-lg font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-all duration-500'>Buy Now <HiShoppingBag className='w-5 h-5'/></button>
+<button onClick={()=>handleCart(selectedProduct)} className='inline-flex items-center justify-center gap-2 w-36 lg:w-44 border py-3 rounded-lg font-semibold bg-primary border-primary text-white hover:bg-transparent hover:text-primary transition-all duration-500'>Add To Cart <IoIosCart className='w-5 h-5'/></button>
 </div>
 
 </div>
