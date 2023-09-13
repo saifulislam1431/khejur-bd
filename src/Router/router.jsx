@@ -8,6 +8,7 @@ import ProductDetails from '../pages/ProductDetails/ProductDetails';
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
 import About from '../pages/About/About';
+import AddTestimonial from '../pages/Home/Testimonial/AddTestimonial';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path:"/about",
                 element:<About />
+            },
+            {
+                path:"/add-testimonial",
+                element:<AddTestimonial />
             }
         ]
     }
