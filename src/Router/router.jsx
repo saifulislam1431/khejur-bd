@@ -12,6 +12,7 @@ import AddTestimonial from '../pages/Home/Testimonial/AddTestimonial';
 import PrivateRoute from './PrivateRoute';
 import Cart from '../pages/Cart/Cart';
 import OrderConfirmation from '../pages/OrderConfirmation/OrderConfirmation';
+import DashBoard from '../pages/DashBoard/DashBoard';
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path:"/order-confirmation",
                 element:<OrderConfirmation />
+            },
+            {
+                path:"/dashboard",
+                element:<DashBoard />
             }
         ]
     }

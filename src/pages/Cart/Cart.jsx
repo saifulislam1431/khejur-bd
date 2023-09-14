@@ -58,7 +58,7 @@ const Cart = () => {
             <div className='w-full'>
                 <div className='mb-8'>
                     <h1 className='mb-2 text-3xl font-bold'>Verify address</h1>
-                    <p className='font-medium'>Please confirm your address and delivery method!</p>
+                    <p className='font-medium'>Please confirm your address!</p>
                 </div>
 
                 <div className='w-full lg:w-3/4 bg-white shadow-lg rounded-lg py-3 px-3 mb-8'>
