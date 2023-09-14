@@ -43,10 +43,12 @@ const Cart = () => {
             const shippingInfo = {
                 address: data.address,
                 city: data.city,
+                phone: data.phone,
                 state: data.state,
                 postalCode: data.postal,
                 addressType: data.office ? "office" : "home"
             }
+            console.log(shippingInfo);
             const res = await axiosSecure.patch(`/update-user-info/${userInfo?._id}`,shippingInfo)
             if(res.data){
                 navigate("/order-confirmation")
@@ -153,6 +155,17 @@ const Cart = () => {
                             {errors.postal?.type === 'required' && <p role="alert" className='text-error font-medium'>Postal code is required</p>}
                         </div>
 
+                    </div>
+
+                    <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between'>
+                        <div className='flex flex-col space-y-1'>
+                            <label className='font-semibold'>Phone <span className='text-error'>*</span></label>
+                            <input type='tel' defaultValue={userInfo?.phone ? userInfo?.phone : ""} placeholder='Enter Your phone number'
+                                {...register("phone", { required: true })}
+                                aria-invalid={errors.phone ? "true" : "false"}
+                                className='inputField2' />
+                            {errors.phone?.type === 'required' && <p role="alert" className='text-error font-medium'>Phone number is required</p>}
+                        </div>
                     </div>
 
                     <div className='w-full lg:w-3/4 flex flex-col space-y-1'>

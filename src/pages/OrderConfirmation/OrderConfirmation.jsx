@@ -23,7 +23,12 @@ const OrderConfirmation = () => {
 
     const onSubmit = async (data) => {
        
-        const orderInfo ={
+        const orderInfo ={  
+            address: userInfo?.address,
+            state: userInfo?.state,
+            postalCode: userInfo?.postalCode,
+            city: userInfo?.city,
+            phone: userInfo?.phone,         
             email: userInfo?.email,
             customerName: userInfo?.name,
             products: carts?.map(allProduct=>allProduct),
