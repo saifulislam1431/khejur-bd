@@ -13,6 +13,14 @@ import PrivateRoute from './PrivateRoute';
 import Cart from '../pages/Cart/Cart';
 import OrderConfirmation from '../pages/OrderConfirmation/OrderConfirmation';
 import DashBoard from '../pages/DashBoard/DashBoard';
+import AdminRoute from './AdminRoute';
+import ManageProducts from '../pages/Admin/ManageProducts/ManageProducts';
+import AddProduct from '../pages/Admin/AddProduct/AddProduct';
+import ManageUsers from '../pages/Admin/ManageUsers/ManageUsers';
+import ManageOrders from '../pages/Admin/ManageOrders/ManageOrders';
+import UpdateProducts from '../pages/Admin/UpdateProducts/UpdateProducts';
+import UserOrders from '../pages/UserDash/UserOrders/UserOrders';
+import TrackOrders from '../pages/UserDash/TrackOrders/TrackOrders';
 
 const router = createBrowserRouter([
     {
@@ -58,7 +66,37 @@ const router = createBrowserRouter([
             },
             {
                 path:"/dashboard",
-                element:<DashBoard />
+                element:<PrivateRoute><DashBoard /></PrivateRoute>,
+                children:[
+                    {
+                        path:"manageProducts",
+                        element: <PrivateRoute><AdminRoute><ManageProducts/></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"add-product",
+                        element:<PrivateRoute><AdminRoute><AddProduct /></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"manageUsers",
+                        element:<PrivateRoute><AdminRoute><ManageUsers /></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"manageOrders",
+                        element:<PrivateRoute><AdminRoute><ManageOrders/></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"updateProduct",
+                        element:<PrivateRoute><AdminRoute><UpdateProducts /></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"my-orders",
+                        element:<PrivateRoute><UserOrders /></PrivateRoute>
+                    },
+                    {
+                        path:"track-orders",
+                        element:<TrackOrders />
+                    }
+                ]
             }
         ]
     }

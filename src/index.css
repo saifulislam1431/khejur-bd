@@ -47,3 +47,10 @@ body{
 .inputField2 {
   @apply w-full px-6 py-2 rounded-md bg-accent bg-opacity-20 focus:outline focus:outline-accent
 }
+.dash-active {
+  @apply w-full bg-base-100 font-bold text-primary py-3 px-3 rounded-tl-lg rounded-bl-lg
+}
+
+.dash-default {
+  @apply font-semibold py-3 px-3 text-neutral
+}

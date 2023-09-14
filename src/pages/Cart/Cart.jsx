@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./cart.css"
-import { HiUser } from "react-icons/hi2";
+import { HiTrash, HiUser } from "react-icons/hi2";
 import { IoMdPaperPlane } from "react-icons/io";
 import useProfile from '../../hooks/useProfile';
 import { useForm } from 'react-hook-form';
@@ -8,10 +8,11 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import useCarts from '../../hooks/useCarts';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Cart = () => {
     const navigate = useNavigate();
-    const [carts] = useCarts();
+    const [carts, refetch] = useCarts();
     const total = carts.reduce((sum , item)=> parseInt(item.newPrice) + sum , 0)
     const [axiosSecure] = useAxiosSecure()
     const [error , setError] = useState("")
@@ -41,7 +42,6 @@ const Cart = () => {
         }else{
             const shippingInfo = {
                 address: data.address,
-                date: new Date(),
                 city: data.city,
                 state: data.state,
                 postalCode: data.postal,
@@ -53,6 +53,31 @@ const Cart = () => {
             }
         }
 
+    }
+    const handleDlt = (id) =>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/remove-cart/${id}`)
+                if(res.data.deletedCount > 0){
+                    refetch()
+                    Swal.fire(
+                        'Deleted!',
+                        'Your item has been deleted.',
+                        'success'
+                      )
+                }
+
+            }
+          })
+        console.log(id);
     }
     return (
         <section className='pageLayout px-3 lg:px-10 py-10'>
@@ -170,15 +195,19 @@ const Cart = () => {
 
 <div className='w-ful'>
 {
-    carts?.map(cart=><div key={cart?._id} className='w-full my-7 px-2 py-2 border-b-2 rounded-md inline-flex items-center gap-5'>
+    carts?.map(cart=><div key={cart?._id} className='w-full my-7 px-2 py-2 border-b-2 rounded-md flex items-center gap-5'>
         <div>
         <img src={cart?.imageUrl} alt="Product Image" className='w-32 rounded-lg'/>
         </div>
 
-<div className='space-y-1'>
+<div className='space-y-1 flex-grow'>
    <h1 className='brand'>{cart?.name}</h1> 
    <p className='font-semibold'>Size: {cart?.baseSize}</p>
    <p className='font-semibold'>৳{cart?.basePrice} x {cart?.quantity}</p>
+</div>
+
+<div className='space-y-1'>
+<button onClick={()=>handleDlt(cart._id)} className='text-white bg-error px-2 py-2 rounded-lg border border-error hover:bg-transparent hover:text-error transition-all duration-500'><HiTrash className='h-6 w-6'/></button>
 </div>
 
     </div>)

@@ -29,11 +29,12 @@ const OrderConfirmation = () => {
             products: carts?.map(allProduct=>allProduct),
             orderStatus: "Pending",
             transactionId: data.transactionId,
-            totalPrice: total
+            totalPrice: total,
+            date: new Date()
         }
         const res = await axiosSecure.post(`/confirm-orders?email=${userInfo?.email}`, orderInfo)
         if(res.data.deletedCount > 0){
-            navigate("/dashboard")
+            navigate("/dashboard/my-orders")
             refetch()
             Swal.fire({
                 title: 'Success!',
