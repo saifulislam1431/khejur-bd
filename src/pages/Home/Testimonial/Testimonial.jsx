@@ -15,7 +15,7 @@ import 'swiper/css/pagination';
 import './testimonial.css';
 
 // import required modules
-import { EffectCoverflow, Pagination } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Autoplay, Navigation } from 'swiper/modules';
 import { FaPenFancy, FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -44,8 +44,13 @@ const Testimonial = () => {
           modifier: 1,
           slideShadows: true,
         }}
+        autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
         pagination={true}
-        modules={[EffectCoverflow, Pagination]}
+        navigation={true}
+        modules={[Autoplay, EffectCoverflow, Pagination, Navigation]}
         className="mySwiper"
       >
                 {
