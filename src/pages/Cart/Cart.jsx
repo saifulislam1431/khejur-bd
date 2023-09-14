@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import useCarts from '../../hooks/useCarts';
+import { Helmet } from 'react-helmet-async';
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Cart = () => {
         }else{
             const shippingInfo = {
                 address: data.address,
+                date: new Date(),
                 city: data.city,
                 state: data.state,
                 postalCode: data.postal,
@@ -54,6 +56,9 @@ const Cart = () => {
     }
     return (
         <section className='pageLayout px-3 lg:px-10 py-10'>
+            <Helmet>
+                <title>Cart | khejur BD</title>
+            </Helmet>
 
             <div className='w-full'>
                 <div className='mb-8'>
@@ -132,7 +137,7 @@ const Cart = () => {
 
                             <div className='flex flex-col space-y-1'>
                                 <label className="cursor-pointer label relative">
-                                    <input type="checkbox" checked={userInfo?.addressType === "home" ? true :false} className="checkbox checkbox-secondary" {...register("home")}
+                                    <input type="checkbox"  className="checkbox checkbox-secondary" {...register("home")}
                                         aria-invalid={errors.home ? "true" : "false"} />
                                     <span className="label-text absolute left-10">Home</span>
                                 </label>
@@ -140,7 +145,7 @@ const Cart = () => {
 
                             <div className='flex flex-col space-y-1'>
                                 <label className="cursor-pointer label relative">
-                                    <input type="checkbox" checked={userInfo?.addressType === "office" ? true :false} className="checkbox checkbox-secondary" {...register("office")}
+                                    <input type="checkbox" className="checkbox checkbox-secondary" {...register("office")}
                                         aria-invalid={errors.office ? "true" : "false"} />
                                     <span className="label-text absolute left-10">Office</span>
                                 </label>

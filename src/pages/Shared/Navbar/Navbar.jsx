@@ -154,7 +154,7 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
       <div className="w-9 rounded-full">
-        <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+      <img src={user?.photoURL} alt='User' />
       </div>
       <p className='bg-primary text-base w-7 h-7 px-1 py-1 rounded-full text-info absolute -top-2 -right-2'>90</p>
     </label>

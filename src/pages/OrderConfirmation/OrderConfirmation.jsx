@@ -9,6 +9,7 @@ import useProfile from '../../hooks/useProfile';
 import { IoWallet } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const OrderConfirmation = () => {
     const navigate = useNavigate();
@@ -46,6 +47,9 @@ const OrderConfirmation = () => {
 
     return (
         <section className='pageLayout px-3 lg:px-10 py-10'>
+            <Helmet>
+                <title>Confirmation Order | Khejur BD</title>
+            </Helmet>
 
             <div className='w-full'>
                 <div className='mb-8'>
