@@ -24,24 +24,24 @@ const UserOrders = () => {
     </thead>
     <tbody>
       {
-customerOrders.map(order=><tr key={order._id} className='font-medium'>
-        <td>{order.email}</td>
+customerOrders.map(order=><tr key={order?._id} className='font-medium'>
+        <td>{order?.email}</td>
 
         <td>
-        {order.products.map(prod=><p>{prod.name}</p>)}
+        {order?.products.map(prod=><p>{prod?.name}</p>)}
         </td>
 
 
-        <td>{order.products.map(prod=><p>
-        <span>{prod.baseSize}</span>
+        <td>{order?.products.map(prod=><p>
+        <span>{prod?.baseSize}</span>
         </p>)}</td>
 
         <td>
-        {order.products.map(prod=><p>৳ {prod.basePrice} x {prod.quantity}</p>)}
+        {order?.products.map(prod=><p>৳ {prod?.basePrice} x {prod?.quantity}</p>)}
         </td>
 
-        <td>{order.transactionId}</td>
-        <td>৳ {order.totalPrice}</td>
+        <td>{order?.transactionId}</td>
+        <td>৳ {order?.totalPrice}</td>
         
     </tr>)
       }

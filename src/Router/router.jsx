@@ -85,7 +85,7 @@ const router = createBrowserRouter([
                         element:<PrivateRoute><AdminRoute><ManageOrders/></AdminRoute></PrivateRoute>
                     },
                     {
-                        path:"updateProduct",
+                        path:"updateProduct/:id",
                         element:<PrivateRoute><AdminRoute><UpdateProducts /></AdminRoute></PrivateRoute>
                     },
                     {

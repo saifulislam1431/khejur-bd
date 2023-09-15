@@ -6,6 +6,7 @@ import { HiBars3BottomLeft, HiHome, HiMiniAdjustmentsHorizontal, HiMiniListBulle
 
 const DashBoard = () => {
     const [isAdmin] = useAdmin();
+    // const isAdmin = true;
 
     return (
 <div className="drawer lg:drawer-open">
