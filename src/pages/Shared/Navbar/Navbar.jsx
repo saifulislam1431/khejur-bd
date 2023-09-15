@@ -12,7 +12,7 @@ import useCarts from '../../../hooks/useCarts';
 const Navbar = () => {
     const {user, logOut} = useAuth();
     const [carts , refetch] = useCarts();
-    console.log(carts);
+    // console.log(carts);
     // const user = true;
     const handleOut =()=>{
         logOut()
