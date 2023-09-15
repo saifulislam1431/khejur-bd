@@ -8,10 +8,12 @@ import { HiOutlineClipboardDocumentList, HiOutlineHome, HiOutlineInformationCirc
 import { IoSearch } from "react-icons/io5";
 import Swal from 'sweetalert2';
 import useCarts from '../../../hooks/useCarts';
+import useAdmin from '../../../hooks/useAdmin';
 
 const Navbar = () => {
     const {user, logOut} = useAuth();
     const [carts , refetch] = useCarts();
+    const [isAdmin] = useAdmin();
     // console.log(carts);
     // const user = true;
     const handleOut =()=>{
@@ -36,7 +38,7 @@ const Navbar = () => {
 </li>
 
 <li>
-    <NavLink to="/dashboard" className={({isActive})=>(isActive ? "navActive" : "navDefault")}>Dashboard</NavLink>
+    <NavLink to={`${isAdmin ? "/dashboard/manageProducts" : "/dashboard/my-orders"}`} className={({isActive})=>(isActive ? "navActive" : "navDefault")}>Dashboard</NavLink>
 </li>
 
 <li>

@@ -94,7 +94,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path:"track-orders",
-                        element:<TrackOrders />
+                        element:<PrivateRoute><TrackOrders /></PrivateRoute>
                     }
                 ]
             }
