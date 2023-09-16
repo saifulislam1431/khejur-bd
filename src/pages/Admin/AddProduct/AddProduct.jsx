@@ -7,7 +7,7 @@ import useProducts from '../../../hooks/useProducts';
 
 const AddProduct = () => {
     const [, refetch] =useProducts()
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors, isSubmitSuccessful }, handleSubmit, reset, formState } = useForm();
     const [axiosSecure] =useAxiosSecure();
 
 
@@ -29,7 +29,7 @@ const AddProduct = () => {
             reviews: data.reviews
         
         }
-        console.log(newData);
+        // console.log(newData);
         const res = await axiosSecure.post("/new-product", data)
         if(res.data.insertedId){
             refetch()
@@ -39,8 +39,16 @@ const AddProduct = () => {
                 icon: 'success',
                 confirmButtonText: 'Cool'
               })
+              
         }
+        reset()
     }
+
+    React.useEffect(() => {
+        if (formState.isSubmitSuccessful) {
+          reset({ something: "" })
+        }
+      }, [formState, reset])
     return (
         <section>
             <DashHead title="Add New Product" />
@@ -71,19 +79,35 @@ const AddProduct = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Category <span className='text-error'>*</span></label>
-                            <input type='text' placeholder='Product Category'
+                            {/* <input type='text' placeholder='Product Category'
                                 {...register("category", { required: true })}
                                 aria-invalid={errors.category ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select {...register("category",{required: true})} className='inputField font-semibold'>
+                                <option>Select Category</option>
+                                <option value="Dates">Dates</option>
+                                <option value="Peanuts">Peanuts</option>
+                                <option value="seeds">Seeds</option>
+                            </select>
                             {errors.category?.type === 'required' && <p role="alert" className='text-error font-medium'>Product category is required</p>}
                         </div>
 
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Size<span className='text-error'>*</span></label>
-                            <input type='text' placeholder='Product Price'
+                            {/* <input type='text' placeholder='Product Price'
                                 {...register("size", { required: true })}
                                 aria-invalid={errors.size ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select {...register("size",{required: true})} className='inputField font-semibold'>
+                                <option>Select Size</option>
+                                <option value="250 gm">250 gm</option>
+                                <option value="500 gm">500 gm</option>
+                                <option value="1 Kg">1 Kg</option>
+                                <option value="2 Kg">2 Kg</option>
+                                <option value="3 Kg">3 Kg</option>
+                                <option value="4 Kg">4 Kg</option>
+                                <option value="5 Kg">5 Kg</option>
+                            </select>
                             {errors.size?.type === 'required' && <p role="alert" className='text-error font-medium'>Product size is required</p>}
                         </div>
 
@@ -123,10 +147,15 @@ const AddProduct = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Stock <span className='text-error'>*</span></label>
-                            <input type='text' placeholder='Product Stock'
+                            {/* <input type='text' placeholder='Product Stock'
                                 {...register("stock", { required: true })}
                                 aria-invalid={errors.stock ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select {...register("stock",{required: true})} className='inputField font-semibold'>
+                                <option>Select Stock</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Out Of Stock">Out Of Stock</option>
+                            </select>
                             {errors.stock?.type === 'required' && <p role="alert" className='text-error font-medium'>Product stock is required</p>}
                         </div>
 

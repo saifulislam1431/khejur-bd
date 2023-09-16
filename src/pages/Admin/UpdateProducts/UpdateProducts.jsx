@@ -57,7 +57,7 @@ const UpdateProducts = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Name <span className='text-error'>*</span></label>
-                            <input type='text' defaultValue={product?.name ? product?.price : ""} placeholder='Product Name'
+                            <input type='text' defaultValue={product?.name ? product?.name : ""} placeholder='Product Name'
                                 {...register("name", { required: true })}
                                 aria-invalid={errors.name ? "true" : "false"}
                                 className='inputField' />
@@ -78,19 +78,35 @@ const UpdateProducts = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Category <span className='text-error'>*</span></label>
-                            <input type='text' defaultValue={product?.category ? product?.category  : ""} placeholder='Product Category'
+                            {/* <input type='text' defaultValue={product?.category ? product?.category  : ""} placeholder='Product Category'
                                 {...register("category", { required: true })}
                                 aria-invalid={errors.category ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select  {...register("category",{required: true})} className='inputField font-semibold'>
+                                <option defaultValue={product?.category ? product?.category  : ""}>{product?.category ? product?.category  : "Select Category"}</option>
+                                <option value="Dates">Dates</option>
+                                <option value="Peanuts">Peanuts</option>
+                                <option value="seeds">Seeds</option>
+                            </select>
                             {errors.category?.type === 'required' && <p role="alert" className='text-error font-medium'>Product category is required</p>}
                         </div>
 
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Size<span className='text-error'>*</span></label>
-                            <input type='text' defaultValue={product?.size ? product?.size  : ""} placeholder='Product Size'
+                            {/* <input type='text' defaultValue={product?.size ? product?.size  : ""} placeholder='Product Size'
                                 {...register("size", { required: true })}
                                 aria-invalid={errors.size ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select  {...register("size",{required: true})} className='inputField font-semibold'>
+                                <option defaultValue={product?.size ? product?.size  : ""}>{product?.size ? product?.size  : "Select Size"}</option>
+                                <option value="250 gm">250 gm</option>
+                                <option value="500 gm">500 gm</option>
+                                <option value="1 Kg">1 Kg</option>
+                                <option value="2 Kg">2 Kg</option>
+                                <option value="3 Kg">3 Kg</option>
+                                <option value="4 Kg">4 Kg</option>
+                                <option value="5 Kg">5 Kg</option>
+                            </select>
                             {errors.size?.type === 'required' && <p role="alert" className='text-error font-medium'>Product size is required</p>}
                         </div>
 
@@ -130,10 +146,15 @@ const UpdateProducts = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Stock <span className='text-error'>*</span></label>
-                            <input type='text' defaultValue={product?.stock ? product?.stock : ""} placeholder='Product Stock'
+                            {/* <input type='text' defaultValue={product?.stock ? product?.stock : ""} placeholder='Product Stock'
                                 {...register("stock", { required: true })}
                                 aria-invalid={errors.stock ? "true" : "false"}
-                                className='inputField' />
+                                className='inputField' /> */}
+                                <select  {...register("stock",{required: true})} className='inputField font-semibold'>
+                                <option defaultValue={product?.stock ? product?.stock : ""}>{product?.stock ? product?.stock : "Select Stock"}</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Out Of Stock">Out Of Stock</option>
+                            </select>
                             {errors.stock?.type === 'required' && <p role="alert" className='text-error font-medium'>Product stock is required</p>}
                         </div>
 
