@@ -15,7 +15,10 @@ const Main = () => {
 
             </a>
             </div>
+            <div className='max-w-7xl mx-auto'>
             <Outlet />
+            </div>
+            
             <Footer />
         </section>
     );

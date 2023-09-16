@@ -41,7 +41,9 @@ const Cart = () => {
             return setError("One can select one address type.")
         }else{
             const shippingInfo = {
-                address: data.address,
+                house: data.house,
+                road: data.road,
+                unionThana: data.unionThana,
                 city: data.city,
                 phone: data.phone,
                 state: data.state,
@@ -110,6 +112,49 @@ const Cart = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-5 w-full'>
 
+                <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between'>
+                        <div className='flex flex-col space-y-1'>
+                            <label className='font-semibold'>House No. <span className='text-error'>*</span></label>
+                            <input type='text' defaultValue={userInfo?.house ? userInfo?.house : ""} placeholder='House No.'
+                                {...register("house", { required: true })}
+                                aria-invalid={errors.house ? "true" : "false"}
+                                className='inputField2' />
+                            {errors.house?.type === 'required' && <p role="alert" className='text-error font-medium'>House no. is required</p>}
+                        </div>
+
+                        <div className='flex flex-col space-y-1'>
+                            <label className='font-semibold'>Road No. <span className='text-error'>*</span></label>
+                            <input type='number' defaultValue={userInfo?.road ? userInfo?.road : ""} placeholder='Road No.'
+                                {...register("road", { required: true })}
+                                aria-invalid={errors.road ? "true" : "false"}
+                                className='inputField2' />
+                            {errors.road?.type === 'required' && <p role="alert" className='text-error font-medium'>Road No. is required</p>}
+                        </div>
+
+                    </div>
+
+                    <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between'>
+                        <div className='flex flex-col space-y-1'>
+                            <label className='font-semibold'>Union/Thana <span className='text-error'>*</span></label>
+                            <input type='text' defaultValue={userInfo?.unionThana ? userInfo?.unionThana : ""} placeholder='Enter Your Union/Thana'
+                                {...register("unionThana", { required: true })}
+                                aria-invalid={errors.unionThana ? "true" : "false"}
+                                className='inputField2' />
+                            {errors.unionThana?.type === 'required' && <p role="alert" className='text-error font-medium'>Union/Thana is required</p>}
+                        </div>
+
+                        <div className='flex flex-col space-y-1'>
+                            <label className='font-semibold'>Postal Code <span className='text-error'>*</span></label>
+                            <input type='number' defaultValue={userInfo?.postalCode ? userInfo?.postalCode : ""} placeholder='Postal Code'
+                                {...register("postal", { required: true })}
+                                aria-invalid={errors.name ? "true" : "false"}
+                                className='inputField2' />
+                            {errors.postal?.type === 'required' && <p role="alert" className='text-error font-medium'>Postal code is required</p>}
+                        </div>
+
+                    </div>
+
+
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between'>
 
                         <div className='flex flex-col space-y-1'>
@@ -132,27 +177,6 @@ const Cart = () => {
                                 }
                             </select>
                             {errors.city?.type === 'required' && <p role="alert" className='text-error font-medium'>City is required</p>}
-                        </div>
-
-                    </div>
-
-                    <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between'>
-                        <div className='flex flex-col space-y-1'>
-                            <label className='font-semibold'>Address <span className='text-error'>*</span></label>
-                            <input type='text' defaultValue={userInfo?.address ? userInfo?.address : ""} placeholder='Enter Your Address'
-                                {...register("address", { required: true })}
-                                aria-invalid={errors.name ? "true" : "false"}
-                                className='inputField2' />
-                            {errors.address?.type === 'required' && <p role="alert" className='text-error font-medium'>Address is required</p>}
-                        </div>
-
-                        <div className='flex flex-col space-y-1'>
-                            <label className='font-semibold'>Postal Code <span className='text-error'>*</span></label>
-                            <input type='number' defaultValue={userInfo?.postalCode ? userInfo?.postalCode : ""} placeholder='Postal Code'
-                                {...register("postal", { required: true })}
-                                aria-invalid={errors.name ? "true" : "false"}
-                                className='inputField2' />
-                            {errors.postal?.type === 'required' && <p role="alert" className='text-error font-medium'>Postal code is required</p>}
                         </div>
 
                     </div>

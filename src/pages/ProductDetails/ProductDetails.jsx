@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 import { HiChevronLeft, HiMinus, HiPlus, HiShoppingBag } from 'react-icons/hi2';
+import { FaReply } from "react-icons/fa";
 import { IoIosCart } from "react-icons/io";
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
@@ -71,17 +72,38 @@ const ProductDetails = () => {
             const res = await axiosSecure.post("/product-cart", cartInfo);
             if (res.data.insertedId) {
                 refetch();
+
                 Swal.fire({
                     title: 'Success!',
-                    text: 'Selected Successfully',
+                    text: "Selected Successfully",
                     icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
                     confirmButtonText: 'Go To Your Cart To Further Process'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //   return <Navigate to="/signIn" state={{from : location}} replace/>
+                        navigate("/cart")
+                    }
                 })
             }
 
         }
     }
 
+    const handleShareClick = async (product) => {
+        try {
+            await navigator.share({
+                title: product?.name,
+                text: "Check out this amazing product!",
+                // replace "http://localhost:5173" with our hosting url
+                url: `http://localhost:5173/details/${product?._id}`,
+            });
+        } catch (error) {
+            console.error('Error sharing:', error);
+        }
+    };
 
     return (
         <section className='my-10 px-2'>
@@ -132,7 +154,7 @@ const ProductDetails = () => {
                         selectedProduct?.stock === "Out Of Stock"
                             ? <h1 className='text-xl font-semibold text-error'>The product is out of stock that's why it is unable to purchase.</h1>
                             :
-                            <>
+                            <div className='flex flex-col items-center justify-center'>
 
                                 <div className='inline-flex items-center gap-10 '>
                                     <div className='inline-flex items-center'>
@@ -143,7 +165,7 @@ const ProductDetails = () => {
                                         <button onClick={handleDecrease} className={`${quantity < 1 && quantity === 1 ? "disabled:cursor-not-allowed" : "bg-primary px-2 py-2 rounded-r-lg text-white"}`}><HiMinus className='w-6 h-6' /></button>
                                     </div>
 
-                                    <div className='px-5 lg:w-56 text-center py-3 lg:px-9 border bg-primary font-bold  bg-opacity-50 border-primary rounded-3xl text-info'>
+                                    <div className='px-5 lg:w-56 text-center py-3 lg:px-9 border bg-primary font-bold border-primary rounded-lg text-white'>
                                         <p>Price: <span>{parseFloat(quantity === 0 ? 1 : quantity) * parseFloat(selectedProduct?.price)}৳</span></p>
                                     </div>
                                 </div>
@@ -152,8 +174,14 @@ const ProductDetails = () => {
                                     <button onClick={() => handleCart(selectedProduct)} className='inline-flex items-center justify-center gap-2 w-48 lg:w-64 border py-3 rounded-lg font-semibold border-primary text-primary hover:bg-primary hover:text-white transition-all duration-500'>Buy Now <HiShoppingBag className='w-5 h-5' /></button>
                                     <button onClick={() => handleCart(selectedProduct)} className='inline-flex items-center justify-center gap-2 w-36 lg:w-44 border py-3 rounded-lg font-semibold bg-primary border-primary text-white hover:bg-transparent hover:text-primary transition-all duration-500'>Add To Cart <IoIosCart className='w-5 h-5' /></button>
                                 </div>
+                                <div className='w-4/5'>
+                                    <button className='text-lg border rounded-xl py-2 flex flex-row items-center gap-2 justify-center bg-primary border-primary text-white w-full' onClick={() => handleShareClick(selectedProduct)}>
+            <FaReply className='w-7 h-7'/> Share now!                            
+                                    </button>
+                                    
+                                </div>
 
-                            </>
+                            </div>
                     }
 
                 </div>

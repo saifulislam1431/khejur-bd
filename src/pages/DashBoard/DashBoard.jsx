@@ -37,7 +37,7 @@ const DashBoard = () => {
 
                                 <NavLink to="/dashboard/manageOrders" className={({ isActive }) => (isActive ? "dash-active" : "dash-default")}><HiMiniListBullet className='inline-flex items-center h-6 w-6' /> Manage Orders</NavLink>
 
-                                {/* <NavLink to="/dashboard/updateProduct" className={({ isActive }) => (isActive ? "dash-active" : "dash-default")}><HiOutlinePencilSquare className='inline-flex items-center h-6 w-6' /> Update Product</NavLink> */}
+                                <NavLink to="/dashboard/manageReviews" className={({ isActive }) => (isActive ? "dash-active" : "dash-default")}><HiOutlinePencilSquare className='inline-flex items-center h-6 w-6' /> Manage Review</NavLink>
                             </>
 
                                 :

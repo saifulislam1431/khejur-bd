@@ -78,10 +78,6 @@ const UpdateProducts = () => {
                     <div className='w-full lg:w-3/4 flex flex-col lg:flex-row justify-between gap-6 my-5'>
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Category <span className='text-error'>*</span></label>
-                            {/* <input type='text' defaultValue={product?.category ? product?.category  : ""} placeholder='Product Category'
-                                {...register("category", { required: true })}
-                                aria-invalid={errors.category ? "true" : "false"}
-                                className='inputField' /> */}
                                 <select  {...register("category",{required: true})} className='inputField font-semibold'>
                                 <option defaultValue={product?.category ? product?.category  : ""}>{product?.category ? product?.category  : "Select Category"}</option>
                                 <option value="Dates">Dates</option>
@@ -93,10 +89,6 @@ const UpdateProducts = () => {
 
                         <div className='flex flex-col space-y-1'>
                             <label className='font-semibold'>Size<span className='text-error'>*</span></label>
-                            {/* <input type='text' defaultValue={product?.size ? product?.size  : ""} placeholder='Product Size'
-                                {...register("size", { required: true })}
-                                aria-invalid={errors.size ? "true" : "false"}
-                                className='inputField' /> */}
                                 <select  {...register("size",{required: true})} className='inputField font-semibold'>
                                 <option defaultValue={product?.size ? product?.size  : ""}>{product?.size ? product?.size  : "Select Size"}</option>
                                 <option value="250 gm">250 gm</option>

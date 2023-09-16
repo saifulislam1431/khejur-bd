@@ -21,6 +21,7 @@ import ManageOrders from '../pages/Admin/ManageOrders/ManageOrders';
 import UpdateProducts from '../pages/Admin/UpdateProducts/UpdateProducts';
 import UserOrders from '../pages/UserDash/UserOrders/UserOrders';
 import TrackOrders from '../pages/UserDash/TrackOrders/TrackOrders';
+import ManageReviews from '../pages/Admin/ManageReviews/ManageReviews';
 
 const router = createBrowserRouter([
     {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
                     {
                         path:"manageOrders",
                         element:<PrivateRoute><AdminRoute><ManageOrders/></AdminRoute></PrivateRoute>
+                    },
+                    {
+                        path:"manageReviews",
+                        element:<PrivateRoute><AdminRoute><ManageReviews /></AdminRoute></PrivateRoute>
                     },
                     {
                         path:"updateProduct/:id",
