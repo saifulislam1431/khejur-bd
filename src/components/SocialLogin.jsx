@@ -20,7 +20,7 @@ const SocialLogin = () => {
                     name: loggedUser.displayName,
                     photo: loggedUser.photoURL
                 }
-                console.log(newData);
+                // console.log(newData);
                 Swal.fire({
                     title: 'Success!',
                     text: 'Sign In Successful',
