@@ -59,9 +59,9 @@ const SignIn = () => {
             </Helmet>
             <div>
                 <div className='flex items-center justify-center text-center my-10'>
-                <Link className='/'>
-    <img src={logo} alt="Logo" className='w-28'/>
-    </Link>
+                    <Link className='/'>
+                        <img src={logo} alt="Logo" className='w-28' />
+                    </Link>
 
                 </div>
                 <div className='flex gap-14 flex-col lg:flex-row items-center justify-center'>
@@ -77,12 +77,12 @@ const SignIn = () => {
                                 className='inputField' />
                             {errors.email?.type === 'required' && <p role="alert" className='text-error font-medium'>Email is required</p>}
 
-                            <div className='inline-flex items-center'>
+                            <div className='inline-flex items-center relative'>
                                 <input type={type} placeholder='Enter Your Password'
                                     {...register("password", { required: "Password is required" })}
                                     aria-invalid={errors.password ? "true" : "false"}
                                     className='inputField' />
-                                <div className='relative right-8 cursor-pointer' onClick={() => setIsShow(!IsShow)}>
+                                <div className='absolute right-3 cursor-pointer' onClick={() => setIsShow(!IsShow)}>
                                     {
                                         IsShow ? <FaEyeSlash className='h-5 w-5 text-primary' onClick={handleHide} /> : <FaEye className='h-5 w-5 text-primary' onClick={handleShow} />
                                     }

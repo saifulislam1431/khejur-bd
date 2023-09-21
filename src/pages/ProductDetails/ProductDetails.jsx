@@ -27,6 +27,10 @@ const ProductDetails = () => {
         setSelectedProduct(selectedProduct)
     }, [allProducts, id])
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
 
 
 

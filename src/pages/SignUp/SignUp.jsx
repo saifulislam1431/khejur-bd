@@ -71,21 +71,21 @@ const SignUp = () => {
                             const loggedUser = res.user;
 
                             updateUser(loggedUser, data?.name, ResData.data.display_url)
-                                        .then(async() => {
-                                            const res = await axios.post("http://localhost:5000/users", newUser)
-                                            if (res.data.insertedId) {
-                                                userVerify()
-                                                .then(() => {
-                                                    navigate(from, { replace: true })
-                                                    Swal.fire({
-                                                        title: 'Success!',
-                                                        text: 'Sign up successful and check your email to verify!',
-                                                        icon: 'success',
-                                                        confirmButtonText: 'Ok'
-                                                    })  
+                                .then(async () => {
+                                    const res = await axios.post("http://localhost:5000/users", newUser)
+                                    if (res.data.insertedId) {
+                                        userVerify()
+                                            .then(() => {
+                                                navigate(from, { replace: true })
+                                                Swal.fire({
+                                                    title: 'Success!',
+                                                    text: 'Sign up successful and check your email to verify!',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'Ok'
                                                 })
-                                            }
-                                        })
+                                            })
+                                    }
+                                })
 
 
                         })
@@ -135,7 +135,7 @@ const SignUp = () => {
                     </div>
                     <div>
                         <h1 className='text-center mb-10 brand text-primary text-3xl'>Sign Up</h1>
-                        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col space-y-4 w-[90%] lg:w-full mx-auto'>
 
 
                             <input type='text' placeholder='Enter Your Name'
@@ -158,12 +158,12 @@ const SignUp = () => {
                                 className='inputField w-full lg:w-96' />
                             {errors.phone?.type === 'required' && <p role="alert" className='text-error font-medium'>Phone is required</p>}
 
-                            <div className='inline-flex items-center'>
+                            <div className='inline-flex items-center w-full relative'>
                                 <input type={type} placeholder='Enter Your Password'
                                     {...register("password", { required: "Password is required" })}
                                     aria-invalid={errors.password ? "true" : "false"}
                                     className='inputField' />
-                                <div className='relative right-8 cursor-pointer' onClick={() => setIsShow(!IsShow)}>
+                                <div className='absolute right-3 cursor-pointer' onClick={() => setIsShow(!IsShow)}>
                                     {
                                         IsShow ? <FaEyeSlash className='h-5 w-5 text-primary' onClick={handleHide} /> : <FaEye className='h-5 w-5 text-primary' onClick={handleShow} />
                                     }
@@ -184,7 +184,7 @@ const SignUp = () => {
                             <input type='file' placeholder='Enter Your Photo Url'
                                 {...register("photo", { required: true })}
                                 aria-invalid={errors.photo ? "true" : "false"}
-                                className='file-input file-input-bordered file-input-primary w-96' />
+                                className='file-input file-input-bordered file-input-primary lg:w-96' />
                             {errors.photo?.type === 'required' && <p role="alert" className='text-error font-medium'>Photo is required</p>}
 
 
